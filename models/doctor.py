@@ -9,5 +9,6 @@ class HospitalDoctor(models.Model):
 
     name = fields.Char(string='Name')
     experience = fields.Integer(string='Experience')
-    is_doctor_in_hospital = fields.Boolean(string="Is Doctor in Patient")
-    doctor_id = fields.Many2one('res.partner', string="Name")
+    is_doctor_in_hospital = fields.Boolean(string="Is Doctor in Hospital")
+    doctor_id = fields.Many2one('res.partner', string="id_number")
+    image_1920=fields.Binary(string='image')

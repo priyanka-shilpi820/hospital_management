@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from datetime import date
 
 
 class HospitalPatient(models.Model):
@@ -16,7 +17,11 @@ class HospitalPatient(models.Model):
     date_of_birth = fields.Date(string="DOB")
     patient_names = fields.Many2many(comodel_name="hospital.doctor", string="Doctors")
     patient_lines = fields.One2many("hospital.patient.line", "patient", "Order lines")
+    image = fields.Image(string="Profile Image")
     email = fields.Char(string="email")  # related="patient_id.email"
+
+    status = fields.Selection([("admit", "Admitted"), ("discharge", "Discharged")], "status", default="admit",
+                              compute="status_date")
 
     user_id = fields.Many2one("res.users", "user", compute="compute_user_company")
     company_id = fields.Many2one("res.company", "company", compute="compute_user_company")
@@ -32,10 +37,34 @@ class HospitalPatient(models.Model):
             print(rec)
             rec.email = rec.patient_id.email
 
+    def status_date(self):
+        today = date.today()
+        for i in self:
+            if i.discharge_date and today > i.discharge_date:
+                i.status = "discharge"
+            else:
+                i.status = "admit"
+
     # def compute_patient_id(self):
     #  for rec in self:
     #    print(rec)
     #  rec.email=rec.patient_id.email
+
+    def send_email(self):
+        for rec in self:
+            template = self.env.ref("hospital_management.mail_template_patient_confirm")
+            template.send_mail(rec.id, force_send=True)
+
+    def view_patient_lines(self):
+        self.ensure_one()
+        for rec in self:
+            return {
+                'name': "view patient invoices",
+                'view_mode': 'list',
+                'res_model': 'hospital.patient.line',
+                'domain': [('patient', '=', rec.id)],
+                'type': 'ir.actions.act_window',
+            }
 
 
 class HospitalPatientLines(models.Model):
@@ -45,3 +74,9 @@ class HospitalPatientLines(models.Model):
     qty = fields.Integer("qty")
     unit_price = fields.Float("Unit price")
     patient = fields.Many2one("hospital.patient", "patient")
+    subtotal = fields.Float("subtotal", compute="compute_subtotal")
+    patient_id = fields.Many2one('hospital.patient', string="Patient")
+
+    def compute_subtotal(self):
+        for i in self:
+            i.subtotal = i.qty * i.unit_price
