@@ -10,4 +10,11 @@
             </xpath>
         </field>
     </record>
+    <record id="action_sale_order_data" model="ir.actions.act_window">
+    <field name="name">Data</field>
+    <field name="res_model">sale.order</field>
+    <field name="view_mode">tree,form</field>
+    <field name="domain">[]</field>
+</record>
+
 </odoo>

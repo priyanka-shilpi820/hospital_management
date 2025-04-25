@@ -5,53 +5,55 @@
             <t t-foreach="docs" t-as="patient">
                 <t t-call="web.external_layout">
                     <div class="page">
-<!--                        <h2>SHILPI HOSPITAL MANAGEMENT <img t-if="patient.company_id.logo" t-att-src="image_data_url(patient.company_id.logo)" style="max-height:180px;" alt="logo"/></h2>-->
+
+                        <h3>PRIYANKA HOSPITAL MANAGEMENT</h3>
                         <header style="background-color:skyblue; padding-top:0px;">
-                        <h2 style="color:black">SHILPI HOSPITAL MANAGEMENT SYSTEM<img t-if="patient.company_id.logo" t-att-src="image_data_uri(patient.company_id.logo)" style="max-height: 100px;" alt="Logo"/></h2>
+
                         </header>
                         <div>
-
-                            <h1 t-field="patient.patient_id" style="color:skyblue" ></h1>
+                            <div style="text-align:right">
+                                <h3>PRIYANKA SHILPI</h3>
                             <br/>
                             <p>
-                                <b style="color:skyblue; font-size:20px;">AGE:</b>
-                                <span style="font-size:20px;" t-field="patient.age"/>
+                                <b style=" font-size:20px;">Name:</b>
+                                <span style="font-size:20px;" t-field="patient.patient_id"/>
                             </p>
                             <p>
-                                <b style="color:skyblue; font-size:20px;">Gender:</b>
+                                <b style=" font-size:20px;">Gender:</b>
                                 <span style="font-size:20px;" t-field="patient.gender"/>
                             </p>
                             <p>
-                                <b style="color:skyblue; font-size:20px;">Admit Date:</b>
+                                <b style=" font-size:20px;">Admit Date:</b>
                                 <span style="font-size:20px;" t-field="patient.admit_date"/>
                             </p>
                             <p>
-                                <b style="color:skyblue;font-size:20px;">Discharge Date:</b>
+                                <b style="font-size:20px;">Discharge Date:</b>
                                 <span style="font-size:20px;" t-field="patient.discharge_date"/>
                             </p>
+                            </div>
                         </div>
                         <table>
                             <thead>
                                 <tr style="color:skyblue; font-size:20px;">
-                                    <th style="padding:40px"><b>PRODUCT NAME</b></th>
-                                    <th style="padding:40px"><b>QUANTITY</b></th>
-                                    <th style="padding:40px"><b>UNIT PRICE</b></th>
-                                    <th style="padding:40px"><b>SUB TOTAL</b></th>
+                                    <th style="padding:20px"><b>PRODUCT NAME</b></th>
+                                    <th style="padding:20px"><b>QUANTITY</b></th>
+                                    <th style="padding:20px"><b>UNIT PRICE</b></th>
+                                    <th style="padding:20px"><b>SUB TOTAL</b></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <t t-foreach="patient.patient_lines" t-as="lines">
-                                    <tr style="font-size:20px;">
-                                        <td style="padding:40px">
+                                    <tr style="font-size:10px;">
+                                        <td style="padding:30px">
                                             <span t-field="lines.product_id"/>
                                         </td>
-                                        <td style="padding:40px">
+                                        <td style="padding:30px">
                                             <span t-field="lines.qty"/>
                                         </td>
-                                        <td style="padding:40px">
+                                        <td style="padding:30px">
                                             <span t-field="lines.unit_price"/>
                                         </td>
-                                        <td style="padding:40px">
+                                        <td style="padding:30px">
                                             <span t-field="lines.subtotal"/>
                                         </td>
                                     </tr>
@@ -60,7 +62,7 @@
                             </tbody>
                             <tfoot>
                                 <tr>
-                                    <td colspan="4">
+                                    <td colspan="3">
                                         total
                                     </td>
                                     <td>
@@ -69,7 +71,6 @@
                                 </tr>
                             </tfoot>
                         </table>
-
                     </div>
                 </t>
             </t>

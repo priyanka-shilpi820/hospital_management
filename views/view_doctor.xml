@@ -10,11 +10,11 @@
                     <field name="image_1920" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;: &quot;avatar_128&quot;}"/>
                     <group>
                         <group>
+                        <field name="doctor_id"/>
                         <field name="name"/>
-                        <field name="experience"/>
                         </group>
                         <group>
-                        <field name="doctor_id"/>
+                        <field name="experience"/>
                         <field name="is_doctor_in_hospital"/>
                         </group>
                     </group>

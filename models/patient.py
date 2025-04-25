@@ -1,3 +1,5 @@
+from email.policy import default
+
 from odoo import models, fields, api
 from datetime import date
 
@@ -9,8 +11,12 @@ class HospitalPatient(models.Model):
 
     patient_id = fields.Many2one(comodel_name="res.partner", string="Name", domain=[("email", "!=", False)],
                                  tracking=True, required=True, stored=True)
+    # name = fields.Char(string='Patient ID', required=True, copy=False, readonly=True, default='New')
+
+    seq=fields.Char(string='Patient Sequence' , default='new')
     age = fields.Integer(string="Age")
     gender = fields.Selection([("male", "Male"), ("female", "Female")], "Gender")
+
     is_patient_in_ward = fields.Boolean("is patient in ward")
     admit_date = fields.Date("Admit date")
     discharge_date = fields.Date("discharge Date")
@@ -19,12 +25,22 @@ class HospitalPatient(models.Model):
     patient_lines = fields.One2many("hospital.patient.line", "patient", "Order lines")
     image = fields.Image(string="Profile Image")
     email = fields.Char(string="email")  # related="patient_id.email"
-
+    address=fields.Char(string="address")
+    project=fields.Char(string="project")
+    contact=fields.Char(string="contact")
     status = fields.Selection([("admit", "Admitted"), ("discharge", "Discharged")], "status", default="admit",
                               compute="status_date")
 
+
+
+
+
     user_id = fields.Many2one("res.users", "user", compute="compute_user_company")
     company_id = fields.Many2one("res.company", "company", compute="compute_user_company")
+
+    def create(self, vals):
+        vals["seq"] = self.env['ir.sequence'].next_by_code('hospital.patient')
+        return super(HospitalPatient, self).create(vals)
 
     def compute_user_company(self):
         for rec in self:

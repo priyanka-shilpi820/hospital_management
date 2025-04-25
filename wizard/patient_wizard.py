@@ -11,3 +11,6 @@ class PatientReport(models.TransientModel):
 
     def view_pdf_report(self):
         print("hello")
+
+    def view_pdf_report(self):
+        return self.env.ref('hospital_management.report_patient_pdf').report_action(self)

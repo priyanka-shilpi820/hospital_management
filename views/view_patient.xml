@@ -17,12 +17,22 @@
                                 icon="fa-pencil-square-o"
                                 string="patient"/>
                     </div>
+
+                    <div>
+                        <h1>
+                            <field name="seq" readonly="1"/>
+                        </h1>
+                    </div>
                     <group>
                         <group>
                             <field name="patient_id"/>
                             <field name="age"/>
                             <field name="gender"/>
                             <field name="email"/>
+
+                            <field name="address"/>
+                            <field name="project"/>
+                            <field name="contact"/>
                         </group>
                         <group>
                             <field name="is_patient_in_ward"/>

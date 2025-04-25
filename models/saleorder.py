@@ -3,4 +3,4 @@ from odoo import models,fields
 class SaleOrder(models.Model):
     _inherit = "sale.order"
 
-    customer_name=fields.Char("customer Name")
+    customer_name=fields.Char(string="customer Name")
